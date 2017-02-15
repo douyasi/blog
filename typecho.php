@@ -143,27 +143,36 @@ EOT;
                 $index_str .= '* ['.$md_article['title'].']('.$md_article['file_path'].')'.PHP_EOL;
             }
 
-            $readme = <<<EOT
+            $readme_content = <<<EOT
 # BLOG
 
 >   [豆芽丝](http://douyasi.com) 博客备份。
 
 ## Typecho博文导出脚本使用说明
 
-本导出脚本只支持使用 `markdown` 编辑的文章。
+本 [导出脚本](https://github.com/douyasi/blog) 只支持使用 `markdown` 编辑的文章。
 
 请自行修改 `Typecho` 数据库与站点配置等参数，然后在命令行执行 `php export.php` ，导出代码见 `typecho.php` ，源码依赖于 `medoo` 数据库框架。
 
-## 博文列表
-
-$index_str
-
 EOT;
+
+            $index_content = <<<EOD
+博文列表
+$index_str
+EOD;
+
             $readme_file = __DIR__.'/readme.md';
             if (file_exists($readme_file)) {
                 unlink($readme_file);
             }
-            file_put_contents($readme_file, $readme);
+            file_put_contents($readme_file, $readme_content);
+
+            $index_file = __DIR__.'/index.md';
+            if (file_exists($index_file)) {
+                unlink($index_file);
+            }
+            file_put_contents($index_file, $index_content);
+
         }
     }
 }
